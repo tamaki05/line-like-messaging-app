@@ -1,0 +1,14 @@
+# アップロードファイル
+/uploads/*
+!/uploads/.gitkeep
+
+# 設定ファイル（DB接続情報など）
+/config/database.php
+
+# キャッシュ・ログ
+*.log
+/tmp/
+
+# OS
+.DS_Store
+Thumbs.db
