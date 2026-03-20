@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../../src/Model/Room.php';
 
-$invitedUserId = (int)($_GET['invited_user_id'] ?? 0);
+$invitedUserId = (int)($_POST['invited_user_id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 
 // 不正なリクエストは弾く

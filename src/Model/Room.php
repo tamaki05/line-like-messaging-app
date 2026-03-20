@@ -21,17 +21,29 @@ class Room {
         return $stmt->fetch();
     }
 
-    // 指定ユーザーが参加している全ルームを取得
+    // 指定ユーザーが参加している全ルームを取得（最新メッセージも含む）
     public function findByUserId(int $userId): array {
         $pdo  = get_db();
         $stmt = $pdo->prepare('
             SELECT
                 rooms.*,
                 u1.username AS created_username,
-                u2.username AS invited_username
+                u2.username AS invited_username,
+                latest_msg.content    AS latest_content,
+                latest_msg.image_path AS latest_image_path,
+                latest_msg.created_at AS latest_created_at
             FROM rooms
             INNER JOIN users u1 ON rooms.created_user_id = u1.id
             INNER JOIN users u2 ON rooms.invited_user_id = u2.id
+            LEFT JOIN (
+                SELECT m1.room_id, m1.content, m1.image_path, m1.created_at
+                FROM messages m1
+                INNER JOIN (
+                    SELECT room_id, MAX(id) AS max_id
+                    FROM messages
+                    GROUP BY room_id
+                ) m2 ON m1.room_id = m2.room_id AND m1.id = m2.max_id
+            ) AS latest_msg ON latest_msg.room_id = rooms.id
             WHERE rooms.created_user_id = ? OR rooms.invited_user_id = ?
             ORDER BY rooms.updated_at DESC
         ');
