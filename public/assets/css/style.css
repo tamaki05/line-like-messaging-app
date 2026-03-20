@@ -382,11 +382,21 @@ body {
     border-bottom-right-radius: 4px;
 }
 
+.mine .message-bubble a {
+    color: #fff;
+    text-decoration: underline;
+}
+
 .theirs .message-bubble {
     background-color: #fff;
     color: #333;
     border-bottom-left-radius: 4px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+
+.theirs .message-bubble a {
+    color: #06c755;
+    text-decoration: underline;
 }
 
 .message-time {

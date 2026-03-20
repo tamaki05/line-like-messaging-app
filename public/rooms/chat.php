@@ -9,6 +9,17 @@ if (!isset($_SESSION['user_id'])) {
 require_once __DIR__ . '/../../src/Model/Room.php';
 require_once __DIR__ . '/../../src/Model/Message.php';
 
+// テキスト内のURLをリンクに変換する関数
+function linkify(string $text): string {
+    $escaped = htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+    $linked  = preg_replace(
+        '/(https?:\/\/[^\s<>"\']+)/u',
+        '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>',
+        $escaped
+    );
+    return nl2br($linked);
+}
+
 $roomId        = (int)($_GET['id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 
@@ -74,7 +85,7 @@ $messages = $messageModel->findByRoomId($roomId);
                             <?php endif; ?>
                             <div class="message-bubble">
                                 <?php if ($message['content']): ?>
-                                    <p><?= nl2br(htmlspecialchars($message['content'], ENT_QUOTES, 'UTF-8')) ?></p>
+                                    <p><?= linkify($message['content']) ?></p>
                                 <?php endif; ?>
                                 <?php if ($message['image_path']): ?>
                                     <img src="<?= htmlspecialchars($message['image_path'], ENT_QUOTES, 'UTF-8') ?>" class="message-image" alt="画像">
