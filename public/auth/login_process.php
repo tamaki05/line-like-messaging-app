@@ -10,7 +10,7 @@ $password = $_POST['password'] ?? '';
 // バリデーション
 if (!$username || !$password) {
     $_SESSION['error'] = 'ユーザー名とパスワードを入力してください';
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 }
 
@@ -25,7 +25,7 @@ try {
     // ユーザーが存在しない or パスワード不一致
     if (!$user || !password_verify($password, $user['password'])) {
         $_SESSION['error'] = 'ユーザー名またはパスワードが正しくありません';
-        header('Location: /auth/login.php');
+        header('Location: /auth/login');
         exit;
     }
 
@@ -33,11 +33,11 @@ try {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['username'] = $user['username'];
 
-    header('Location: /top.php');
+    header('Location: /top');
     exit;
 
 } catch (PDOException $e) {
     $_SESSION['error'] = 'ログインに失敗しました';
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 }

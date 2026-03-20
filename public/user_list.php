@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 }
 
@@ -36,7 +36,7 @@ $users = array_filter(
                                 <span class="user-name">
                                     <?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>
                                 </span>
-                                <a href="/rooms/create.php?invited_user_id=<?= $user['id'] ?>" class="btn-talk">トークする</a>
+                                <a href="/rooms/create?invited_user_id=<?= $user['id'] ?>" class="btn-talk">トークする</a>
                             </li>
                         <?php endforeach; ?>
                     </ul>

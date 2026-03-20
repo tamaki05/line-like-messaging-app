@@ -6,7 +6,7 @@ $pdo = get_db();
 
 // ログインチェック
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 }
 
@@ -29,11 +29,11 @@ try {
     session_start();
     $_SESSION['success'] = '退会が完了しました';
 
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 
 } catch (PDOException $e) {
     $_SESSION['error'] = '退会に失敗しました';
-    header('Location: /mypage.php');
+    header('Location: /top');
     exit;
 }

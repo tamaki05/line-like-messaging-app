@@ -11,13 +11,13 @@ $password_confirm = $_POST['password_confirm'] ?? '';
 // バリデーション
 if (!$username || !$password || !$password_confirm) {
     $_SESSION['error'] = 'すべての項目を入力してください';
-    header('Location: /auth/register.php');
+    header('Location: /auth/register');
     exit;
 }
 
 if ($password !== $password_confirm) {
     $_SESSION['error'] = 'パスワードが一致しません';
-    header('Location: /auth/register.php');
+    header('Location: /auth/register');
     exit;
 }
 
@@ -29,7 +29,7 @@ try {
 
     if ($stmt->fetch()) {
         $_SESSION['error'] = 'このユーザー名は既に使用されています';
-        header('Location: /auth/register.php');
+        header('Location: /auth/register');
         exit;
     }
 
@@ -46,10 +46,10 @@ try {
     $stmt->execute();
 
     $_SESSION['success'] = '登録が完了しました！';
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 
 } catch (PDOException $e) {
     $_SESSION['error'] = '登録に失敗しました';
-    header('Location: /auth/register.php');
+    header('Location: /auth/register');
 }

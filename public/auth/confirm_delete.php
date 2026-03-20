@@ -3,7 +3,7 @@ session_start();
 
 // ログインチェック
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login.php');
+    header('Location: /auth/login');
     exit;
 }
 ?>
@@ -26,12 +26,12 @@ if (!isset($_SESSION['user_id'])) {
                     本当に退会しますか？
                 </p>
 
-                <form action="/auth/delete_account.php" method="post">
+                <form action="/auth/delete_account" method="post">
                     <button type="submit" class="btn-danger">退会する</button>
                 </form>
 
                 <p style="margin-top:16px;">
-                    <a href="/top.php">キャンセル</a>
+                    <a href="/top">キャンセル</a>
                 </p>
             </div>
         </div>

@@ -22,7 +22,7 @@
                 <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
 
-            <form action="/auth/register_process.php" method="post">
+            <form action="/auth/register_process" method="post">
                 <div class="form-group">
                     <input type="text" name="username" placeholder="ユーザー名" required>
                 </div>
@@ -40,7 +40,7 @@
 
             <p class="auth-link">
                 すでにアカウントをお持ちの方は
-                <a href="/auth/login.php">ログイン</a>
+                <a href="/auth/login">ログイン</a>
             </p>
         </div>
     </div>

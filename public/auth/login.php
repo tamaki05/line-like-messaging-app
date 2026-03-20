@@ -25,7 +25,7 @@
                 <?php unset($_SESSION['success']); ?>
             <?php endif; ?>
 
-            <form action="/auth/login_process.php" method="post">
+            <form action="/auth/login_process" method="post">
                 <div class="form-group">
                     <input type="text" name="username" placeholder="ユーザー名" required>
                 </div>
@@ -35,7 +35,7 @@
                 <button type="submit" class="btn-primary">ログイン</button>
             </form>
 
-            <p class="auth-link">アカウントをお持ちでない方は<a href="/auth/register.php">新規登録</a></p>
+            <p class="auth-link">アカウントをお持ちでない方は<a href="/auth/register">新規登録</a></p>
         </div>
     </div>
 </body>
