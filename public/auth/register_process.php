@@ -15,6 +15,12 @@ if (!$username || !$password || !$password_confirm) {
     exit;
 }
 
+if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
+    $_SESSION['error'] = 'ユーザー名は英数字とアンダースコアのみ使用できます';
+    header('Location: /auth/register');
+    exit;
+}
+
 if ($password !== $password_confirm) {
     $_SESSION['error'] = 'パスワードが一致しません';
     header('Location: /auth/register');

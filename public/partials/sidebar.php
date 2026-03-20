@@ -1,5 +1,8 @@
 <div class="sidebar">
     <h2 class="sidebar-title">MSG</h2>
+    <p class="sidebar-username">
+        <?= htmlspecialchars($_SESSION['username'], ENT_QUOTES, 'UTF-8') ?> でログイン中
+    </p>
     <nav class="sidebar-nav">
         <ul>
             <li><a href="/user_list">ユーザー一覧</a></li>
