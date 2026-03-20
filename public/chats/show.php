@@ -24,7 +24,7 @@ $roomId        = (int)($_GET['id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 
 if (!$roomId) {
-    header('Location: /top');
+    header('Location: /chat_list');
     exit;
 }
 
@@ -33,7 +33,7 @@ $room = $roomModel->findById($roomId);
 
 // ルームが存在しない、または自分が参加者でない場合は弾く
 if (!$room || !in_array($currentUserId, [(int)$room['created_user_id'], (int)$room['invited_user_id']])) {
-    header('Location: /top');
+    header('Location: /chat_list');
     exit;
 }
 

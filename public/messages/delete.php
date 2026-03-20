@@ -13,7 +13,7 @@ $roomId        = (int)($_POST['room_id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 
 if (!$messageId || !$roomId) {
-    header('Location: /top');
+    header('Location: /chat_list');
     exit;
 }
 

@@ -27,7 +27,7 @@ if (!isset($_SESSION['user_id'])) {
                 </p>
 
                 <div class="confirm-actions">
-                    <a href="/top" class="btn-cancel">キャンセル</a>
+                    <a href="/chat_list" class="btn-cancel">キャンセル</a>
                     <form action="/auth/delete_account" method="post">
                         <button type="submit" class="btn-danger-sm">退会する</button>
                     </form>

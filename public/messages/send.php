@@ -14,7 +14,7 @@ $content       = trim($_POST['content'] ?? '');
 $currentUserId = (int)$_SESSION['user_id'];
 
 if (!$roomId) {
-    header('Location: /top');
+    header('Location: /chat_list');
     exit;
 }
 
@@ -23,7 +23,7 @@ $roomModel = new Room();
 $room = $roomModel->findById($roomId);
 
 if (!$room || !in_array($currentUserId, [(int)$room['created_user_id'], (int)$room['invited_user_id']])) {
-    header('Location: /top');
+    header('Location: /chat_list');
     exit;
 }
 
