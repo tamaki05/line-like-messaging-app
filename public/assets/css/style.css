@@ -133,3 +133,42 @@ body {
     font-size: 20px;
     margin-bottom: 16px;
 }
+
+/* ユーザー一覧 */
+.user-list {
+    list-style: none;
+}
+
+.user-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.user-name {
+    font-size: 15px;
+}
+
+.btn-talk {
+    padding: 6px 16px;
+    background-color: #06c755;
+    color: #fff;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-talk:hover {
+    background-color: #05b34c;
+}
+
+.empty-message {
+    color: #aaa;
+    font-size: 14px;
+    text-align: center;
+    padding: 20px 0;
+}
