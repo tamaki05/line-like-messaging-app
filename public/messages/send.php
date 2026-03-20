@@ -31,11 +31,14 @@ if (!$room || !in_array($currentUserId, [(int)$room['created_user_id'], (int)$ro
 $imagePath = null;
 if (!empty($_FILES['image']['tmp_name'])) {
     $file     = $_FILES['image'];
-    $mimeType = mime_content_type($file['tmp_name']);
-    $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    $mimeType   = mime_content_type($file['tmp_name']);
+    $mimeToExt  = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+    ];
 
-    if (!in_array($mimeType, $allowedTypes)) {
-        $_SESSION['error'] = '画像はJPEG・PNG・GIF・WebPのみ対応しています';
+    if (!isset($mimeToExt[$mimeType])) {
+        $_SESSION['error'] = '画像はJPEGまたはPNGのみ対応しています';
         header('Location: /chats/show?id=' . $roomId);
         exit;
     }
@@ -46,7 +49,7 @@ if (!empty($_FILES['image']['tmp_name'])) {
         exit;
     }
 
-    $ext      = pathinfo($file['name'], PATHINFO_EXTENSION);
+    $ext      = $mimeToExt[$mimeType];
     $filename = uniqid('img_', true) . '.' . $ext;
     $destPath = __DIR__ . '/../uploads/' . $filename;
 

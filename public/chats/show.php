@@ -106,7 +106,7 @@ $messages = $messageModel->findByRoomId($roomId);
                     <div class="chat-input-row">
                         <input type="text" name="content" id="content-input" placeholder="メッセージを入力" autocomplete="off">
                         <label class="btn-attach" for="image-input">📎</label>
-                        <input type="file" name="image" id="image-input" accept="image/*" style="display:none;">
+                        <input type="file" name="image" id="image-input" accept="image/jpeg,image/png" style="display:none;">
                         <button type="submit" class="btn-send">送信</button>
                     </div>
                     <div id="image-preview-area"></div>

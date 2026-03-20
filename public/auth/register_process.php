@@ -21,6 +21,12 @@ if (!preg_match('/^[a-zA-Z0-9_]+$/', $username)) {
     exit;
 }
 
+if (mb_strlen($password) < 8) {
+    $_SESSION['error'] = 'パスワードは8文字以上で入力してください';
+    header('Location: /auth/register');
+    exit;
+}
+
 if ($password !== $password_confirm) {
     $_SESSION['error'] = 'パスワードが一致しません';
     header('Location: /auth/register');
