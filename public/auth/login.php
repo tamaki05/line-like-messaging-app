@@ -12,8 +12,11 @@
         <div class="auth-box">
             <h1 class="auth-title">MSG</h1>
 
-            <?php if (isset($_GET['error'])): ?>
-                <p class="error-message">ユーザー名またはパスワードが正しくありません。</p>
+            <?php if (isset($_SESSION['error'])): ?>
+                <p class="error-message">
+                    <?= htmlspecialchars($_SESSION['error'], ENT_QUOTES, 'UTF-8'); ?>
+                </p>
+                <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
             <?php if (isset($_SESSION['success'])): ?>
                 <p class="success-message">
