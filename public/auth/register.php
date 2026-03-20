@@ -15,8 +15,11 @@
                 アカウントを作成しましょう
             </p>
 
-            <?php if (isset($_GET['error'])): ?>
-                <p class="error-message">入力内容に誤りがあります。</p>
+            <?php if (isset($_SESSION['error'])): ?>
+                <p class="error-message">
+                    <?= htmlspecialchars($_SESSION['error'], ENT_QUOTES, 'UTF-8'); ?>
+                </p>
+                <?php unset($_SESSION['error']); ?>
             <?php endif; ?>
 
             <form action="/auth/register_process.php" method="post">

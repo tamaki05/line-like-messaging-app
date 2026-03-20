@@ -15,6 +15,12 @@
             <?php if (isset($_GET['error'])): ?>
                 <p class="error-message">ユーザー名またはパスワードが正しくありません。</p>
             <?php endif; ?>
+            <?php if (isset($_SESSION['success'])): ?>
+                <p class="success-message">
+                    登録が完了しました！
+                </p>
+                <?php unset($_SESSION['success']); ?>
+            <?php endif; ?>
 
             <form action="/auth/login_process.php" method="post">
                 <div class="form-group">

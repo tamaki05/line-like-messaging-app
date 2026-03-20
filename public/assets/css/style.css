@@ -91,3 +91,12 @@ body {
     font-size: 13px;
     margin-bottom: 16px;
 }
+
+.success-message {
+    background-color: #e6f9ed;
+    color: #06c755;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
