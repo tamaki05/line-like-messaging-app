@@ -22,17 +22,16 @@ if (!isset($_SESSION['user_id'])) {
             <div class="content-card">
                 <h1 class="page-title">退会確認</h1>
 
-                <p style="margin-bottom:20px; color:#e00;">
+                <p style="margin-bottom:28px; color:#e00; text-align:center;">
                     本当に退会しますか？
                 </p>
 
-                <form action="/auth/delete_account" method="post">
-                    <button type="submit" class="btn-danger">退会する</button>
-                </form>
-
-                <p style="margin-top:16px;">
-                    <a href="/top">キャンセル</a>
-                </p>
+                <div class="confirm-actions">
+                    <a href="/top" class="btn-cancel">キャンセル</a>
+                    <form action="/auth/delete_account" method="post">
+                        <button type="submit" class="btn-danger-sm">退会する</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

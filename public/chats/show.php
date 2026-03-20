@@ -120,13 +120,15 @@ $messages = $messageModel->findByRoomId($roomId);
         const roomId       = <?= $roomId ?>;
         const currentUserId = <?= $currentUserId ?>;
 
-        // 最下部にスクロール
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        // 最下部にスクロール（画像の読み込み完了後に実行）
+        window.addEventListener('load', () => {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
 
-        // 最後のメッセージ日時（ポーリングの起点）
+        // 最後のメッセージ日時
         let lastCreatedAt = <?= !empty($messages) ? '"' . end($messages)['created_at'] . '"' : '"' . date('Y-m-d H:i:s') . '"' ?>;
 
-        // URLをリンクに変換（PHPのlinkify関数と同じ処理）
+        // URLをリンクに変換
         function linkify(text) {
             const escaped = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
             return escaped.replace(/(https?:\/\/[^\s<>"']+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>')
@@ -163,7 +165,7 @@ $messages = $messageModel->findByRoomId($roomId);
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        // ポーリング（2秒ごと）
+        // ポーリング
         setInterval(async () => {
             const res = await fetch(`/api/messages?room_id=${roomId}&last_created_at=${encodeURIComponent(lastCreatedAt)}`);
             const messages = await res.json();
