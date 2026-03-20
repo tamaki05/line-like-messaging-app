@@ -52,6 +52,19 @@ class Message {
         return (int) $pdo->lastInsertId();
     }
 
+    // ルームの最新メッセージを1件取得（チャット一覧に使用）
+    public function findLatestByRoomId(int $roomId): array|false {
+        $pdo  = get_db();
+        $stmt = $pdo->prepare('
+            SELECT * FROM messages
+            WHERE room_id = ?
+            ORDER BY created_at DESC
+            LIMIT 1
+        ');
+        $stmt->execute([$roomId]);
+        return $stmt->fetch();
+    }
+
     // IDでメッセージを取得
     public function findById(int $id): array|false {
         $pdo  = get_db();

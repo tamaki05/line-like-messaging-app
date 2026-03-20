@@ -268,6 +268,57 @@ body {
 }
 
 /* =============================
+   チャット一覧
+============================= */
+.room-list {
+    list-style: none;
+}
+
+.room-list-item {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.room-list-item:last-child {
+    border-bottom: none;
+}
+
+.room-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.15s;
+}
+
+.room-link:hover {
+    background-color: #f9f9f9;
+}
+
+.room-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.room-partner-name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.room-latest-message {
+    font-size: 13px;
+    color: #888;
+}
+
+.room-updated-at {
+    font-size: 11px;
+    color: #bbb;
+    white-space: nowrap;
+}
+
+/* =============================
    チャット画面
 ============================= */
 .chat-container {
