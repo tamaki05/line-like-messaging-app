@@ -51,4 +51,19 @@ class Message {
         $stmt->execute([$roomId, $userId, $content, $imagePath]);
         return (int) $pdo->lastInsertId();
     }
+
+    // IDでメッセージを取得
+    public function findById(int $id): array|false {
+        $pdo  = get_db();
+        $stmt = $pdo->prepare('SELECT * FROM messages WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    // メッセージ削除
+    public function delete(int $id): void {
+        $pdo  = get_db();
+        $stmt = $pdo->prepare('DELETE FROM messages WHERE id = ?');
+        $stmt->execute([$id]);
+    }
 }

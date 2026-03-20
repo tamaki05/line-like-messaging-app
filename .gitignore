@@ -1,6 +1,8 @@
 # アップロードファイル
 /uploads/*
 !/uploads/.gitkeep
+/public/uploads/*
+!/public/uploads/.gitkeep
 
 # 設定ファイル（DB接続情報など）
 /config/database.php

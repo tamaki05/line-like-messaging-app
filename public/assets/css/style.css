@@ -344,6 +344,34 @@ body {
     margin-top: 4px;
 }
 
+.message-with-actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.mine .message-with-actions {
+    flex-direction: row-reverse;
+}
+
+.delete-form {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.message-row:hover .delete-form {
+    opacity: 1;
+}
+
+.btn-delete-message {
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 2px;
+    color: #aaa;
+}
+
 .message-image {
     max-width: 200px;
     border-radius: 8px;

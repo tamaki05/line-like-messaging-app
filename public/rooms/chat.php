@@ -63,13 +63,23 @@ $messages = $messageModel->findByRoomId($roomId);
                                 <?= htmlspecialchars($message['sender_username'], ENT_QUOTES, 'UTF-8') ?>
                             </span>
                         <?php endif; ?>
-                        <div class="message-bubble">
-                            <?php if ($message['content']): ?>
-                                <p><?= nl2br(htmlspecialchars($message['content'], ENT_QUOTES, 'UTF-8')) ?></p>
+                        <div class="message-with-actions">
+                            <?php if ($isMine): ?>
+                                <form action="/messages/delete" method="post" class="delete-form"
+                                      onsubmit="return confirm('このメッセージを削除しますか？')">
+                                    <input type="hidden" name="message_id" value="<?= $message['id'] ?>">
+                                    <input type="hidden" name="room_id" value="<?= $roomId ?>">
+                                    <button type="submit" class="btn-delete-message">削除</button>
+                                </form>
                             <?php endif; ?>
-                            <?php if ($message['image_path']): ?>
-                                <img src="<?= htmlspecialchars($message['image_path'], ENT_QUOTES, 'UTF-8') ?>" class="message-image" alt="画像">
-                            <?php endif; ?>
+                            <div class="message-bubble">
+                                <?php if ($message['content']): ?>
+                                    <p><?= nl2br(htmlspecialchars($message['content'], ENT_QUOTES, 'UTF-8')) ?></p>
+                                <?php endif; ?>
+                                <?php if ($message['image_path']): ?>
+                                    <img src="<?= htmlspecialchars($message['image_path'], ENT_QUOTES, 'UTF-8') ?>" class="message-image" alt="画像">
+                                <?php endif; ?>
+                            </div>
                         </div>
                         <span class="message-time">
                             <?= date('H:i', strtotime($message['created_at'])) ?>
