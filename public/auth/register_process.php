@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../config/database.php'; // DB接続ファイル
-$pdo = get_db();
+require_once __DIR__ . '/../../src/Model/User.php';
+$userModel = new User();
 
 $username = $_POST['username'] ?? '';
 $password = $_POST['password'] ?? '';
@@ -33,35 +33,16 @@ if ($password !== $password_confirm) {
     exit;
 }
 
-try {
-    // ユーザー名重複チェック
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = :username");
-    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-    $stmt->execute();
-
-    if ($stmt->fetch()) {
-        $_SESSION['error'] = 'このユーザー名は既に使用されています';
-        header('Location: /auth/register');
-        exit;
-    }
-
-    // パスワードハッシュ化
-    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-
-    // 登録処理
-    $stmt = $pdo->prepare("
-        INSERT INTO users (username, password) VALUES (:username, :password)");
-
-    $stmt->bindValue(':username', $username, PDO::PARAM_STR);
-    $stmt->bindValue(':password', $passwordHash, PDO::PARAM_STR);
-
-    $stmt->execute();
-
-    $_SESSION['success'] = '登録が完了しました！';
-    header('Location: /auth/login');
-    exit;
-
-} catch (PDOException $e) {
-    $_SESSION['error'] = '登録に失敗しました';
+// ユーザー名重複チェック
+if ($userModel->findByUsername($username)) {
+    $_SESSION['error'] = 'このユーザー名は既に使用されています';
     header('Location: /auth/register');
+    exit;
 }
+
+// 登録処理
+$userModel->create($username, $password);
+
+$_SESSION['success'] = '登録が完了しました！';
+header('Location: /auth/login');
+exit;
