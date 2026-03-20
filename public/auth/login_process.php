@@ -29,5 +29,5 @@ session_regenerate_id(true);
 $_SESSION['user_id'] = $user['id'];
 $_SESSION['username'] = $user['username'];
 
-header('Location: /top');
+header('Location: /chat_list');
 exit;
