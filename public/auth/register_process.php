@@ -38,9 +38,7 @@ try {
 
     // 登録処理
     $stmt = $pdo->prepare("
-        INSERT INTO users (username, password, created_at, updated_at)
-        VALUES (:username, :password, NOW(), NOW())
-    ");
+        INSERT INTO users (username, password) VALUES (:username, :password)");
 
     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
     $stmt->bindValue(':password', $passwordHash, PDO::PARAM_STR);
@@ -52,6 +50,6 @@ try {
     exit;
 
 } catch (PDOException $e) {
-    header('Location: /auth/register.php?error=1');
-    exit;
+    $_SESSION['error'] = '登録に失敗しました';
+    header('Location: /auth/register.php');
 }

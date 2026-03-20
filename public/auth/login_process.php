@@ -16,7 +16,7 @@ if (!$username || !$password) {
 
 try {
     // ユーザー取得
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username AND deleted_at IS NULL");
     $stmt->bindValue(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
 
