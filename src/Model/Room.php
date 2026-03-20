@@ -4,10 +4,19 @@ require_once __DIR__ . '/../../config/database.php';
 
 class Room {
 
-    // IDでルームを取得
+    // IDでルームを取得（参加ユーザー名も含む）
     public function findById(int $id): array|false {
         $pdo  = get_db();
-        $stmt = $pdo->prepare('SELECT * FROM rooms WHERE id = ?');
+        $stmt = $pdo->prepare('
+            SELECT
+                rooms.*,
+                u1.username AS created_username,
+                u2.username AS invited_username
+            FROM rooms
+            INNER JOIN users u1 ON rooms.created_user_id = u1.id
+            INNER JOIN users u2 ON rooms.invited_user_id = u2.id
+            WHERE rooms.id = ?
+        ');
         $stmt->execute([$id]);
         return $stmt->fetch();
     }
