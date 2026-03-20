@@ -36,13 +36,13 @@ if (!empty($_FILES['image']['tmp_name'])) {
 
     if (!in_array($mimeType, $allowedTypes)) {
         $_SESSION['error'] = '画像はJPEG・PNG・GIF・WebPのみ対応しています';
-        header('Location: /rooms/chat?id=' . $roomId);
+        header('Location: /chats/show?id=' . $roomId);
         exit;
     }
 
     if ($file['size'] > 5 * 1024 * 1024) {
         $_SESSION['error'] = '画像サイズは5MB以内にしてください';
-        header('Location: /rooms/chat?id=' . $roomId);
+        header('Location: /chats/show?id=' . $roomId);
         exit;
     }
 
@@ -57,7 +57,7 @@ if (!empty($_FILES['image']['tmp_name'])) {
 
 // テキストも画像もない場合は何もしない
 if ($content === '' && $imagePath === null) {
-    header('Location: /rooms/chat?id=' . $roomId);
+    header('Location: /chats/show?id=' . $roomId);
     exit;
 }
 
@@ -72,5 +72,5 @@ if ($imagePath) {
 // ルームのupdated_atを更新
 $roomModel->touch($roomId);
 
-header('Location: /rooms/chat?id=' . $roomId);
+header('Location: /chats/show?id=' . $roomId);
 exit;

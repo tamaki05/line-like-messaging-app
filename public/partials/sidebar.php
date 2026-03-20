@@ -6,7 +6,7 @@
     <nav class="sidebar-nav">
         <ul>
             <li><a href="/user_list">ユーザー一覧</a></li>
-            <li><a href="/room_list">チャット一覧</a></li>
+            <li><a href="/chat_list">チャット一覧</a></li>
             <li><a href="/auth/logout">ログアウト</a></li>
             <li><a href="/auth/confirm_delete">退会</a></li>
         </ul>

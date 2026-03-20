@@ -36,7 +36,7 @@ $users = array_filter(
                                 <span class="user-name">
                                     <?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>
                                 </span>
-                                <form action="/rooms/create" method="post">
+                                <form action="/chats/create" method="post">
                                     <input type="hidden" name="invited_user_id" value="<?= $user['id'] ?>">
                                     <button type="submit" class="btn-talk">トークする</button>
                                 </form>

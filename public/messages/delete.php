@@ -22,7 +22,7 @@ $message = $messageModel->findById($messageId);
 
 // メッセージが存在しない、または自分のメッセージでない場合は弾く
 if (!$message || (int)$message['user_id'] !== $currentUserId) {
-    header('Location: /rooms/chat?id=' . $roomId);
+    header('Location: /chats/show?id=' . $roomId);
     exit;
 }
 
@@ -36,5 +36,5 @@ if ($message['image_path']) {
 
 $messageModel->delete($messageId);
 
-header('Location: /rooms/chat?id=' . $roomId);
+header('Location: /chats/show?id=' . $roomId);
 exit;

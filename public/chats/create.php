@@ -23,9 +23,9 @@ $roomModel = new Room();
 $room = $roomModel->findByUsers($currentUserId, $invitedUserId);
 
 if ($room) {
-    header('Location: /rooms/chat?id=' . $room['id']);
+    header('Location: /chats/show?id=' . $room['id']);
 } else {
     $roomId = $roomModel->create($currentUserId, $invitedUserId);
-    header('Location: /rooms/chat?id=' . $roomId);
+    header('Location: /chats/show?id=' . $roomId);
 }
 exit;
