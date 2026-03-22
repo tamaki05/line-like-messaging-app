@@ -42,7 +42,7 @@ unset($room);
                     <ul class="room-list">
                         <?php foreach ($rooms as $room): ?>
                             <li class="room-list-item">
-                                <a href="<?= $base ?>chats/show?id=<?= $room['id'] ?>">
+                                <a href="<?= $base ?>chats/show?id=<?= $room['id'] ?>" class="room-link">
                                     <div class="room-info">
                                         <span class="room-partner-name">
                                             <?= htmlspecialchars($room['partner_username'], ENT_QUOTES, 'UTF-8') ?>

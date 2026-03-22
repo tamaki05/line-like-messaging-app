@@ -171,14 +171,22 @@ $messages = $messageModel->findByRoomId($roomId);
         }
 
         // ポーリング
-        setInterval(async () => {
-            const res = await fetch(`<?= $base ?>api/messages.php?room_id=${roomId}&last_created_at=${encodeURIComponent(lastCreatedAt)}`);
-            const messages = await res.json();
-            if (Array.isArray(messages) && messages.length > 0) {
-                messages.forEach(appendMessage);
-                lastCreatedAt = messages[messages.length - 1].created_at;
+        const poll = async () => {
+            try {
+                const res = await fetch(`<?= $base ?>api/messages.php?room_id=${roomId}&last_created_at=${encodeURIComponent(lastCreatedAt)}`);
+                if (!res.ok) throw new Error(`HTTP error: ${res.status}`);
+                const messages = await res.json();
+                if (Array.isArray(messages) && messages.length > 0) {
+                    messages.forEach(appendMessage);
+                    lastCreatedAt = messages[messages.length - 1].created_at;
+                }
+            } catch (e) {
+                console.error('ポーリングエラー:', e);
+            } finally {
+                setTimeout(poll, document.hidden ? 10000 : 2000);
             }
-        }, 2000);
+        };
+        poll();
 
         // 画像プレビュー
         document.getElementById('image-input').addEventListener('change', function () {
