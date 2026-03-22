@@ -1,7 +1,8 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/../../src/Model/User.php';
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../src/Model/User.php';
 $userModel = new User();
 
 $username = $_POST['username'] ?? '';
@@ -10,7 +11,7 @@ $password = $_POST['password'] ?? '';
 // バリデーション
 if (!$username || !$password) {
     $_SESSION['error'] = 'ユーザー名とパスワードを入力してください';
-    header('Location: /auth/login');
+    header('Location: ' . $base . 'auth/login');
     exit;
 }
 
@@ -20,7 +21,7 @@ $user = $userModel->findByUsername($username);
 // ユーザーが存在しない or パスワード不一致
 if (!$user || !password_verify($password, $user['password'])) {
     $_SESSION['error'] = 'ユーザー名またはパスワードが正しくありません';
-    header('Location: /auth/login');
+    header('Location: ' . $base . 'auth/login');
     exit;
 }
 
@@ -29,5 +30,5 @@ session_regenerate_id(true);
 $_SESSION['user_id'] = $user['id'];
 $_SESSION['username'] = $user['username'];
 
-header('Location: /chat_list');
+header('Location: ' . $base . 'chat_list');
 exit;

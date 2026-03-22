@@ -1,6 +1,6 @@
 <?php
 // PHP組み込みサーバー用ルーター
-// 起動コマンド: php -S localhost:8000 -t public public/router.php
+// 起動コマンド: php -S localhost:8000 -t public/ public/router.php
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
@@ -9,24 +9,15 @@ if ($uri !== '/' && file_exists(__DIR__ . $uri)) {
     return false;
 }
 
-// /st260319 プレフィックスを除去してファイルを探す
-$localUri = $uri;
-if (strpos($localUri, '/st260319') === 0) {
-    $localUri = substr($localUri, strlen('/st260319'));
-    if ($localUri === '') $localUri = '/';
-}
-
-$root = __DIR__ . '/st260319';
-
 // .phpを付けたファイルが存在すれば読み込む
-$phpFile = $root . $localUri . '.php';
+$phpFile = __DIR__ . $uri . '.php';
 if (file_exists($phpFile)) {
     require $phpFile;
     return true;
 }
 
 // サブディレクトリのindex.phpを探す
-$indexFile = $root . rtrim($localUri, '/') . '/index.php';
+$indexFile = __DIR__ . rtrim($uri, '/') . '/index.php';
 if (file_exists($indexFile)) {
     require $indexFile;
     return true;

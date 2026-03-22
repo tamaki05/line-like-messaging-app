@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../config/database.php';
 class Room {
 
     // IDでルームを取得（参加ユーザー名も含む）
-    public function findById(int $id): array|false {
+    public function findById(int $id) {
         $pdo  = get_db();
         $stmt = $pdo->prepare('
             SELECT
@@ -52,7 +52,7 @@ class Room {
     }
 
     // 2ユーザー間のルームを取得（既存チェックに使用）
-    public function findByUsers(int $createdUserId, int $invitedUserId): array|false {
+    public function findByUsers(int $createdUserId, int $invitedUserId) {
         $pdo  = get_db();
         $stmt = $pdo->prepare('
             SELECT * FROM rooms

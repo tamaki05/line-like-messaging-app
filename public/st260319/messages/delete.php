@@ -2,18 +2,18 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login');
+    header('Location: ../auth/login');
     exit;
 }
 
-require_once __DIR__ . '/../../src/Model/Message.php';
+require_once __DIR__ . '/../src/Model/Message.php';
 
 $messageId     = (int)($_POST['message_id'] ?? 0);
 $roomId        = (int)($_POST['room_id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 
 if (!$messageId || !$roomId) {
-    header('Location: /chat_list');
+    header('Location: ../chat_list');
     exit;
 }
 
@@ -22,7 +22,7 @@ $message = $messageModel->findById($messageId);
 
 // メッセージが存在しない、または自分のメッセージでない場合は弾く
 if (!$message || (int)$message['user_id'] !== $currentUserId) {
-    header('Location: /chats/show?id=' . $roomId);
+    header('Location: ../chats/show?id=' . $roomId);
     exit;
 }
 
@@ -36,5 +36,5 @@ if ($message['image_path']) {
 
 $messageModel->delete($messageId);
 
-header('Location: /chats/show?id=' . $roomId);
+header('Location: ../chats/show?id=' . $roomId);
 exit;

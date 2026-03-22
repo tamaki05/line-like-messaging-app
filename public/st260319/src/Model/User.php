@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../config/database.php';
 class User {
 
     // IDでユーザーを取得
-    public function findById(int $id): array|false {
+    public function findById(int $id) {
         $pdo  = get_db();
         $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ? AND deleted_at IS NULL');
         $stmt->execute([$id]);
@@ -13,7 +13,7 @@ class User {
     }
 
     // ユーザー名でユーザーを取得
-    public function findByUsername(string $username): array|false {
+    public function findByUsername(string $username) {
         $pdo  = get_db();
         $stmt = $pdo->prepare('SELECT * FROM users WHERE username = ? AND deleted_at IS NULL');
         $stmt->execute([$username]);

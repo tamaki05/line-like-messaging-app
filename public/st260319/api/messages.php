@@ -7,8 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/../../src/Model/Room.php';
-require_once __DIR__ . '/../../src/Model/Message.php';
+require_once __DIR__ . '/../src/Model/Room.php';
+require_once __DIR__ . '/../src/Model/Message.php';
 
 $roomId        = (int)($_GET['room_id'] ?? 0);
 $lastCreatedAt = $_GET['last_created_at'] ?? '';
@@ -32,14 +32,16 @@ $messageModel = new Message();
 $messages = $messageModel->findNewMessages($roomId, $lastCreatedAt);
 
 // フロントで使いやすい形に整形
-$result = array_map(fn($m) => [
-    'id'              => $m['id'],
-    'user_id'         => (int)$m['user_id'],
-    'sender_username' => $m['sender_username'],
-    'content'         => $m['content'],
-    'image_path'      => $m['image_path'],
-    'created_at'      => $m['created_at'],
-    'time'            => date('H:i', strtotime($m['created_at'])),
-], $messages);
+$result = array_map(function($m) {
+    return [
+        'id'              => $m['id'],
+        'user_id'         => (int)$m['user_id'],
+        'sender_username' => $m['sender_username'],
+        'content'         => $m['content'],
+        'image_path'      => $m['image_path'],
+        'created_at'      => $m['created_at'],
+        'time'            => date('H:i', strtotime($m['created_at'])),
+    ];
+}, $messages);
 
 echo json_encode($result);

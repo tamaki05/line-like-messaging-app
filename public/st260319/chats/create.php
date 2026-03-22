@@ -2,18 +2,18 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login');
+    header('Location: ../auth/login');
     exit;
 }
 
-require_once __DIR__ . '/../../src/Model/Room.php';
+require_once __DIR__ . '/../src/Model/Room.php';
 
 $invitedUserId = (int)($_POST['invited_user_id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 
 // 不正なリクエストは弾く
 if (!$invitedUserId || $invitedUserId === $currentUserId) {
-    header('Location: /user_list');
+    header('Location: ../user_list');
     exit;
 }
 
@@ -23,9 +23,9 @@ $roomModel = new Room();
 $room = $roomModel->findByUsers($currentUserId, $invitedUserId);
 
 if ($room) {
-    header('Location: /chats/show?id=' . $room['id']);
+    header('Location: show?id=' . $room['id']);
 } else {
     $roomId = $roomModel->create($currentUserId, $invitedUserId);
-    header('Location: /chats/show?id=' . $roomId);
+    header('Location: show?id=' . $roomId);
 }
 exit;

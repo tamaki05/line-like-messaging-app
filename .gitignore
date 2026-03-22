@@ -3,9 +3,12 @@
 !/uploads/.gitkeep
 /public/uploads/*
 !/public/uploads/.gitkeep
+/public/st260319/uploads/*
+!/public/st260319/uploads/.gitkeep
 
 # 設定ファイル（DB接続情報など）
 /config/database.php
+/public/st260319/config/database.php
 
 # キャッシュ・ログ
 *.log

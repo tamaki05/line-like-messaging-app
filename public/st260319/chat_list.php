@@ -2,11 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login');
+    header('Location: ' . $base . 'auth/login');
     exit;
 }
 
-require_once __DIR__ . '/../src/Model/Room.php';
+require_once __DIR__ . '/config/app.php';
+require_once __DIR__ . '/src/Model/Room.php';
 
 $currentUserId = (int)$_SESSION['user_id'];
 $roomModel     = new Room();
@@ -26,7 +27,7 @@ unset($room);
 <head>
     <meta charset="UTF-8">
     <title>チャット一覧 | MSG</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="<?= $base ?>assets/css/style.css">
 </head>
 <body>
     <div class="layout">
@@ -41,7 +42,7 @@ unset($room);
                     <ul class="room-list">
                         <?php foreach ($rooms as $room): ?>
                             <li class="room-list-item">
-                                <a href="/chats/show?id=<?= $room['id'] ?>" class="room-link">
+                                <a href="<?= $base ?>chats/show?id=<?= $room['id'] ?>">
                                     <div class="room-info">
                                         <span class="room-partner-name">
                                             <?= htmlspecialchars($room['partner_username'], ENT_QUOTES, 'UTF-8') ?>

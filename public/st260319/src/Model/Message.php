@@ -53,7 +53,7 @@ class Message {
     }
 
     // ルームの最新メッセージを1件取得（チャット一覧に使用）
-    public function findLatestByRoomId(int $roomId): array|false {
+    public function findLatestByRoomId(int $roomId) {
         $pdo  = get_db();
         $stmt = $pdo->prepare('
             SELECT * FROM messages
@@ -66,7 +66,7 @@ class Message {
     }
 
     // IDでメッセージを取得
-    public function findById(int $id): array|false {
+    public function findById(int $id) {
         $pdo  = get_db();
         $stmt = $pdo->prepare('SELECT * FROM messages WHERE id = ?');
         $stmt->execute([$id]);

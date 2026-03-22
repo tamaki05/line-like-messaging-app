@@ -3,7 +3,7 @@ session_start();
 
 // ログインチェック
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login');
+    header('Location: login');
     exit;
 }
 ?>
@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <title>退会確認</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
     <div class="layout">
@@ -27,8 +27,8 @@ if (!isset($_SESSION['user_id'])) {
                 </p>
 
                 <div class="confirm-actions">
-                    <a href="/chat_list" class="btn-cancel">キャンセル</a>
-                    <form action="/auth/delete_account" method="post">
+                    <a href="../chat_list" class="btn-cancel">キャンセル</a>
+                    <form action="delete_account" method="post">
                         <button type="submit" class="btn-danger-sm">退会する</button>
                     </form>
                 </div>

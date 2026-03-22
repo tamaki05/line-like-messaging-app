@@ -1,14 +1,15 @@
 <?php
 session_start();
 
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../src/Model/User.php';
+$userModel = new User();
+
 // ログインチェック
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login');
+    header('Location: ' . $base . 'auth/login');
     exit;
 }
-
-require_once __DIR__ . '/../../src/Model/User.php';
-$userModel = new User();
 
 $userId = (int)$_SESSION['user_id'];
 
@@ -22,5 +23,5 @@ session_destroy();
 session_start();
 $_SESSION['success'] = '退会が完了しました';
 
-header('Location: /auth/login');
+header('Location: ' . $base . 'auth/login');
 exit;

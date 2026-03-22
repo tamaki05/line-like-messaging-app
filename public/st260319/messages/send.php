@@ -2,19 +2,20 @@
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /auth/login');
+    header('Location: ../auth/login');
     exit;
 }
 
-require_once __DIR__ . '/../../src/Model/Room.php';
-require_once __DIR__ . '/../../src/Model/Message.php';
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../src/Model/Room.php';
+require_once __DIR__ . '/../src/Model/Message.php';
 
 $roomId        = (int)($_POST['room_id'] ?? 0);
 $content       = trim($_POST['content'] ?? '');
 $currentUserId = (int)$_SESSION['user_id'];
 
 if (!$roomId) {
-    header('Location: /chat_list');
+    header('Location: ../chat_list');
     exit;
 }
 
@@ -23,7 +24,7 @@ $roomModel = new Room();
 $room = $roomModel->findById($roomId);
 
 if (!$room || !in_array($currentUserId, [(int)$room['created_user_id'], (int)$room['invited_user_id']])) {
-    header('Location: /chat_list');
+    header('Location: ../chat_list');
     exit;
 }
 
@@ -39,13 +40,13 @@ if (!empty($_FILES['image']['tmp_name'])) {
 
     if (!isset($mimeToExt[$mimeType])) {
         $_SESSION['error'] = '画像はJPEGまたはPNGのみ対応しています';
-        header('Location: /chats/show?id=' . $roomId);
+        header('Location: ../chats/show?id=' . $roomId);
         exit;
     }
 
     if ($file['size'] > 5 * 1024 * 1024) {
         $_SESSION['error'] = '画像サイズは5MB以内にしてください';
-        header('Location: /chats/show?id=' . $roomId);
+        header('Location: ../chats/show?id=' . $roomId);
         exit;
     }
 
@@ -54,13 +55,13 @@ if (!empty($_FILES['image']['tmp_name'])) {
     $destPath = __DIR__ . '/../uploads/' . $filename;
 
     if (move_uploaded_file($file['tmp_name'], $destPath)) {
-        $imagePath = '/uploads/' . $filename;
+        $imagePath = $base . 'uploads/' . $filename;
     }
 }
 
 // テキストも画像もない場合は何もしない
 if ($content === '' && $imagePath === null) {
-    header('Location: /chats/show?id=' . $roomId);
+    header('Location: ../chats/show?id=' . $roomId);
     exit;
 }
 
@@ -75,5 +76,5 @@ if ($imagePath) {
 // ルームのupdated_atを更新
 $roomModel->touch($roomId);
 
-header('Location: /chats/show?id=' . $roomId);
+header('Location: ../chats/show?id=' . $roomId);
 exit;
