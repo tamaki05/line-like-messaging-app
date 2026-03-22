@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php
+session_start();
+require_once __DIR__ . '/../config/database.php';
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,6 +26,7 @@
             <?php endif; ?>
 
             <form action="register_process" method="post">
+                <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                 <div class="form-group">
                     <input type="text" name="username" placeholder="ユーザー名" required>
                 </div>

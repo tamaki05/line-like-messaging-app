@@ -8,6 +8,8 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../src/Model/Room.php';
 
+csrf_verify();
+
 $invitedUserId = (int)($_POST['invited_user_id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];
 

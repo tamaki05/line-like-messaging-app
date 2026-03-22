@@ -38,6 +38,7 @@ $users = array_filter(
                                     <?= htmlspecialchars($user['username'], ENT_QUOTES, 'UTF-8') ?>
                                 </span>
                                 <form action="<?= $base ?>chats/create" method="post">
+                                    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                                     <input type="hidden" name="invited_user_id" value="<?= $user['id'] ?>">
                                     <button type="submit" class="btn-talk">トークする</button>
                                 </form>

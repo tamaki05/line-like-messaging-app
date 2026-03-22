@@ -10,6 +10,8 @@ require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../src/Model/Room.php';
 require_once __DIR__ . '/../src/Model/Message.php';
 
+csrf_verify();
+
 $roomId        = (int)($_POST['room_id'] ?? 0);
 $content       = trim($_POST['content'] ?? '');
 $currentUserId = (int)$_SESSION['user_id'];

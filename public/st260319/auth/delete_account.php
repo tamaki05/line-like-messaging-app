@@ -5,6 +5,8 @@ require_once __DIR__ . '/../config/app.php';
 require_once __DIR__ . '/../src/Model/User.php';
 $userModel = new User();
 
+csrf_verify();
+
 // ログインチェック
 if (!isset($_SESSION['user_id'])) {
     header('Location: ' . $base . 'auth/login');

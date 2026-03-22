@@ -79,6 +79,7 @@ $messages = $messageModel->findByRoomId($roomId);
                             <?php if ($isMine): ?>
                                 <form action="../messages/delete" method="post" class="delete-form"
                                       onsubmit="return confirm('このメッセージを削除しますか？')">
+                                    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                                     <input type="hidden" name="message_id" value="<?= $message['id'] ?>">
                                     <input type="hidden" name="room_id" value="<?= $roomId ?>">
                                     <button type="submit" class="btn-delete-message">削除</button>
@@ -103,6 +104,7 @@ $messages = $messageModel->findByRoomId($roomId);
             <!-- メッセージ入力 -->
             <div class="chat-input-area">
                 <form action="../messages/send" method="post" enctype="multipart/form-data" id="message-form">
+                    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                     <input type="hidden" name="room_id" value="<?= $roomId ?>">
                     <div class="chat-input-row">
                         <input type="text" name="content" id="content-input" placeholder="メッセージを入力" autocomplete="off">
@@ -118,8 +120,9 @@ $messages = $messageModel->findByRoomId($roomId);
 
     <script>
         const chatMessages = document.getElementById('chat-messages');
-        const roomId       = <?= $roomId ?>;
+        const roomId        = <?= $roomId ?>;
         const currentUserId = <?= $currentUserId ?>;
+        const csrfToken     = '<?= csrf_token() ?>';
 
         // 最下部にスクロール（画像の読み込み完了後に実行）
         window.addEventListener('load', () => {
@@ -147,6 +150,7 @@ $messages = $messageModel->findByRoomId($roomId);
             if (isMine) {
                 inner += `<form action="../messages/delete" method="post" class="delete-form"
                                onsubmit="return confirm('このメッセージを削除しますか？')">
+                            <input type="hidden" name="csrf_token" value="${csrfToken}">
                             <input type="hidden" name="message_id" value="${msg.id}">
                             <input type="hidden" name="room_id" value="${roomId}">
                             <button type="submit" class="btn-delete-message">削除</button>

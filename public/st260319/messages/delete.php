@@ -8,6 +8,8 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once __DIR__ . '/../src/Model/Message.php';
 
+csrf_verify();
+
 $messageId     = (int)($_POST['message_id'] ?? 0);
 $roomId        = (int)($_POST['room_id'] ?? 0);
 $currentUserId = (int)$_SESSION['user_id'];

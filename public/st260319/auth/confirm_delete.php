@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/database.php';
 
 // ログインチェック
 if (!isset($_SESSION['user_id'])) {
@@ -29,6 +30,7 @@ if (!isset($_SESSION['user_id'])) {
                 <div class="confirm-actions">
                     <a href="../chat_list" class="btn-cancel">キャンセル</a>
                     <form action="delete_account" method="post">
+                        <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
                         <button type="submit" class="btn-danger-sm">退会する</button>
                     </form>
                 </div>
